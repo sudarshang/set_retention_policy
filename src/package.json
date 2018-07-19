@@ -1,0 +1,21 @@
+{
+  "name": "set_retention_policy",
+  "version": "1.0.0",
+  "description": "Sets the retention policy for a lambda log group",
+  "main": "src/handler.js",
+  "repository": "https://github.com/aws-samples/cookiecutter-aws-sam-hello-nodejs",
+  "author": "Sudarshan Gaikaiwari",
+  "license": "MIT",
+  "files": [
+    "src",
+    "*.js"
+  ],
+  "scripts": {
+    "pack-zip": "export TMPDIR=/home/smg/tmp && claudia pack --no-optional-dependencies --output lambda.zip --source src --force"
+  },
+  "devDependencies": {
+    "claudia": "^5.1.0",
+    "eslint-plugin-prettier": "^2.6.2",
+    "kcd-scripts": "^0.39.2"
+  }
+}

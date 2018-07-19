@@ -1,0 +1,45 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+    set_retention_policy
+
+    Sample SAM Template for set_retention_policy
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+    Function:
+        Timeout: 30
+
+
+Resources:
+
+    SetRetentionPolicyFunction:
+        Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+        Properties:
+            Policies:
+                - Version: '2012-10-17' # Policy Document
+                  Statement:
+                    - Effect: Allow
+                      Action:
+                        - "logs:PutRetentionPolicy"
+                      Resource: '*'
+            CodeUri: lambda.zip
+            Handler: handler.handler
+            Runtime: nodejs8.10
+            Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
+                Variables:
+                    retention_days: 7
+            Events:
+                LogGroupCreationEvent:
+                    Type: CloudWatchEvent
+                    Properties:
+                        Pattern:
+                            source:
+                                - aws.logs
+                            detail-type:
+                                - AWS API Call via CloudTrail
+                            detail:
+                                eventSource:
+                                    - logs.amazonaws.com
+                                eventName:
+                                    - CreateLogGroup

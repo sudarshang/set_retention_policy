@@ -1,0 +1,10 @@
+{
+  "extends": "./node_modules/kcd-scripts/eslint.js",
+  "plugins": [
+    "prettier"
+  ],
+  "rules": {
+    "no-console": "off",
+    "prettier/prettier": "error"
+  }
+}
